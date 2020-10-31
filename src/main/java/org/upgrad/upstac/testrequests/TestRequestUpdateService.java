@@ -82,7 +82,7 @@ public class TestRequestUpdateService {
     public TestRequest updateConsultation(Long id, @Valid CreateConsultationRequest createConsultationRequest, User doctor) {
 
         TestRequest testRequest = testRequestRepository.findByRequestIdAndStatus(id,RequestStatus.DIAGNOSIS_IN_PROCESS).orElseThrow(()-> new AppException("Invalid ID or State"));
-        consultationService.updateConsultation(testRequest,createConsultationRequest);
+        consultationService.updateConsultation(testRequest,createConsultationRequest,doctor);
         testRequestFlowService.log(testRequest, RequestStatus.DIAGNOSIS_IN_PROCESS, RequestStatus.COMPLETED, doctor);
         return updateStatusAndSave(testRequest, RequestStatus.COMPLETED);
     }

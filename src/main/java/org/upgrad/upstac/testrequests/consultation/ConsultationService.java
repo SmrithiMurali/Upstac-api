@@ -35,12 +35,13 @@ public class ConsultationService {
 
     }
 
-    public Consultation updateConsultation(TestRequest testRequest , CreateConsultationRequest createConsultationRequest) {
+    public Consultation updateConsultation(TestRequest testRequest , CreateConsultationRequest createConsultationRequest,User user) {
         Consultation consultation = new Consultation();
         consultation.setSuggestion(createConsultationRequest.getSuggestion());
         consultation.setComments(createConsultationRequest.getComments());
         consultation.setUpdatedOn(LocalDate.now());
         consultation.setRequest(testRequest);
+        consultation.setDoctor(user);
         return consultationRepository.save(consultation);
         //Implement this method to update the consultation
         // create an object of Consultation and make use of setters to set Suggestion, Comments, and UpdatedOn values

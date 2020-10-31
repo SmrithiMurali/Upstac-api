@@ -8,6 +8,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.upgrad.upstac.config.security.UserLoggedInService;
 import org.upgrad.upstac.exception.AppException;
+import org.upgrad.upstac.testrequests.RequestStatus;
 import org.upgrad.upstac.testrequests.TestRequest;
 import org.upgrad.upstac.testrequests.TestRequestQueryService;
 import org.upgrad.upstac.testrequests.TestRequestUpdateService;
@@ -48,11 +49,14 @@ public class ConsultationController {
     @GetMapping("/in-queue")
     @PreAuthorize("hasAnyRole('DOCTOR')")
     public List<TestRequest> getForConsultations()  {
+
+       // User user = userLoggedInService.getLoggedInUser();
+        return testRequestQueryService.findBy(RequestStatus.LAB_TEST_COMPLETED);
         //Implement this method to get the list of test requests having status as 'LAB_TEST_COMPLETED'
         // make use of the findBy() method from testRequestQueryService class
         //return the result
         // For reference check the method requestHistory() method from TestRequestController class
-        return null; // replace this line with your code
+      //  return null; // replace this line with your code
 
     }
 

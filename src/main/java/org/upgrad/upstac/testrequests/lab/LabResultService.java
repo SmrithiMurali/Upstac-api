@@ -54,15 +54,15 @@ public class LabResultService {
 
 
     public LabResult updateLabTest(TestRequest testRequest, CreateLabResult createLabResult) {
-        LabResult labresult = new LabResult();
-        labresult.setBloodPressure(createLabResult.getBloodPressure());
+        LabResult labresult = labResultRepository.findByRequest(testRequest).get();
         labresult.setComments(createLabResult.getComments());
+        labresult.setBloodPressure(createLabResult.getBloodPressure());
         labresult.setHeartBeat(createLabResult.getHeartBeat());
         labresult.setOxygenLevel(createLabResult.getOxygenLevel());
         labresult.setTemperature(createLabResult.getTemperature());
         labresult.setResult(createLabResult.getResult());
         labresult.setUpdatedOn(LocalDate.now());
-        labresult.setRequest(testRequest);
+
         return saveLabResult(labresult);
 
         //Implement this method to update the lab test
