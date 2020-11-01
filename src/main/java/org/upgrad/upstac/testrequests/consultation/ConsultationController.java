@@ -49,20 +49,19 @@ public class ConsultationController {
     @GetMapping("/in-queue")
     @PreAuthorize("hasAnyRole('DOCTOR')")
     public List<TestRequest> getForConsultations()  {
-
-       // User user = userLoggedInService.getLoggedInUser();
+        // returns testRequest with requests status completed
         return testRequestQueryService.findBy(RequestStatus.LAB_TEST_COMPLETED);
         //Implement this method to get the list of test requests having status as 'LAB_TEST_COMPLETED'
         // make use of the findBy() method from testRequestQueryService class
         //return the result
         // For reference check the method requestHistory() method from TestRequestController class
-      //  return null; // replace this line with your code
 
     }
 
     @GetMapping
     @PreAuthorize("hasAnyRole('DOCTOR')")
     public List<TestRequest> getForDoctor()  {
+        // returns testRequest assigned to the user with Role doctor who is signed in currently.
         User user = userLoggedInService.getLoggedInUser();
         return testRequestQueryService.findByDoctor(user);
 
@@ -70,10 +69,6 @@ public class ConsultationController {
         //Implement this method to return the list of test requests assigned to current doctor(make use of the above created User object)
         //Make use of the findByDoctor() method from testRequestQueryService class to get the list
         // For reference check the method getPendingTests() method from TestRequestController class
-
-      //  return null; // replace this line with your code
-
-
 
     }
 
@@ -87,6 +82,9 @@ public class ConsultationController {
         //Create an object of TestRequest class and use the assignForConsultation() method of testRequestUpdateService to assign the particular id to the current user
         // return the above created object
         // Refer to the method createRequest() from the TestRequestController class
+
+        // Assign the test requests for consultation for Doctor who is signed in now
+        // If error happens throw exception
         try {
             User user = userLoggedInService.getLoggedInUser();
             TestRequest result = testRequestUpdateService.assignForConsultation(id, user);
@@ -106,6 +104,9 @@ public class ConsultationController {
         // Create an object of TestResult class and make use of updateConsultation() method from testRequestUpdateService class
         //to update the current test request id with the testResult details by the current user(object created)
 
+
+        // Update the test requests consultation comments of Doctor who is signed in now
+        // If error happens throw exception
         try {
             User user = userLoggedInService.getLoggedInUser();
             TestRequest result = testRequestUpdateService.updateConsultation(id,testResult, user);

@@ -28,6 +28,9 @@ public class LabResultService {
 
     private LabResult createLabResult(User tester, TestRequest testRequest) {
 
+       // Create lab result with the tester and test request details
+       // Return save lab result details
+
         LabResult labresult = new LabResult();
         labresult.setTester(tester);
         labresult.setRequest(testRequest);
@@ -35,7 +38,6 @@ public class LabResultService {
         //Implement this method to create the lab result module service
         // create object of LabResult class and use the setter methods to set tester and testRequest details
         // make use of saveLabResult() method to return the LabResult object
-     //   return null; // replace this line with your code
     }
 
     @Transactional
@@ -54,6 +56,9 @@ public class LabResultService {
 
 
     public LabResult updateLabTest(TestRequest testRequest, CreateLabResult createLabResult) {
+
+        // Create lab result with the lab result details
+        // Return save lab result details
         LabResult labresult = labResultRepository.findByRequest(testRequest).get();
         labresult.setComments(createLabResult.getComments());
         labresult.setBloodPressure(createLabResult.getBloodPressure());

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import org.upgrad.upstac.testrequests.TestRequest;
+import org.upgrad.upstac.testrequests.lab.LabResult;
 import org.upgrad.upstac.users.User;
 
 import javax.transaction.Transactional;
@@ -23,6 +24,8 @@ public class ConsultationService {
 
     @Transactional
     public Consultation assignForConsultation( TestRequest testRequest, User doctor) {
+        // Assign consultation with testRequest and user details and saves the details
+        // returns the consultation details from save method
         Consultation consultation = new Consultation();
         consultation.setRequest(testRequest);
         consultation.setDoctor(doctor);
@@ -30,13 +33,14 @@ public class ConsultationService {
         //Implement this method to assign the consultation service
         // create object of Consultation class and use the setter methods to set doctor and testRequest details
         // make use of save() method of consultationRepository to return the Consultation object
-        //return null; // replace this line with your code
 
 
     }
 
     public Consultation updateConsultation(TestRequest testRequest , CreateConsultationRequest createConsultationRequest,User user) {
-        Consultation consultation = new Consultation();
+        // Update consultation for the test requests
+        // returns the consultation details from save method
+        Consultation consultation = consultationRepository.findByRequest(testRequest).get();
         consultation.setSuggestion(createConsultationRequest.getSuggestion());
         consultation.setComments(createConsultationRequest.getComments());
         consultation.setUpdatedOn(LocalDate.now());
@@ -46,7 +50,6 @@ public class ConsultationService {
         //Implement this method to update the consultation
         // create an object of Consultation and make use of setters to set Suggestion, Comments, and UpdatedOn values
         // make use of save() method of consultationRepository to return the Consultation object
-       // return null; // replace this line with your code
 
 
     }

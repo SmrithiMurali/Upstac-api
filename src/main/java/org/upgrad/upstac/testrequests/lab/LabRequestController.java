@@ -47,19 +47,20 @@ public class LabRequestController {
     @GetMapping("/to-be-tested")
     @PreAuthorize("hasAnyRole('TESTER')")
     public List<TestRequest> getForTests()  {
+        // Returns test requests with request status INITIATED
         return testRequestQueryService.findBy(RequestStatus.INITIATED);
 
 
         //Implement this method to return the list of test requests having status as 'INITIATED'
         //Make use of the findBy() method from testRequestQueryService class to get the list
         // For reference check the method requestHistory() method from TestRequestController class
-            //return null; // replace this line with your code
 
     }
 
     @GetMapping
     @PreAuthorize("hasAnyRole('TESTER')")
     public List<TestRequest> getForTester()  {
+        // Returns test requests assigned to Tester who is currently signed in
         User user = userLoggedInService.getLoggedInUser();
         return testRequestQueryService.findByTester(user);
 
@@ -76,6 +77,8 @@ public class LabRequestController {
     @PreAuthorize("hasAnyRole('TESTER')")
     @PutMapping("/assign/{id}")
     public TestRequest assignForLabTest(@PathVariable Long id) {
+        // Assign the test requests for tester who is signed in now
+        // If error happens throw exception
         try {
             User user = userLoggedInService.getLoggedInUser();
             TestRequest result = testRequestUpdateService.assignForLabTest(id, user);
@@ -99,6 +102,9 @@ public class LabRequestController {
         // Create an object of the User class to get the logged in user
         // Create an object of TestResult class and make use of updateLabTest() method from testRequestUpdateService class
         //to update the current test request id with the createLabResult details by the current user(object created)
+
+        // update the test requests with test results by the tester who is curently signed-in
+        // If error happens throw exception
         try {
             User user = userLoggedInService.getLoggedInUser();
             TestRequest result = testRequestUpdateService.updateLabTest(id,createLabResult, user);
